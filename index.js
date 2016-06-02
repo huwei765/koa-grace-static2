@@ -53,7 +53,7 @@ function _static(prefix, options) {
         return false;
       }
 
-      PATH_CACHE[path] = formatPath(prefix, path);
+      PATH_CACHE[path] = path;
 
       return PATH_CACHE[path];
     }
@@ -66,23 +66,12 @@ function _static(prefix, options) {
     for (let i = 0; i < prefix.length; i++) {
       let match = minimatch(path, prefix[i]);
       if (match) {
-        PATH_CACHE[path] = formatPath(prefix[i], path);
+        PATH_CACHE[path] = path;
         return PATH_CACHE[path];
       }
     }
 
     return false;
-  }
-
-  /**
-   * 生成完整路径
-   * @param  {[type]} pattern [description]
-   * @param  {[type]} path    [description]
-   * @return {[type]}         [description]
-   */
-  function formatPath(pattern, path) {
-    let prefix = pattern.replace(/(\/\*\*|\/\*)/g, '');
-    return path.replace(/(\/[a-zA-Z-_]+)/, prefix +'$1');
   }
 };
 
